@@ -1,0 +1,111 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Prazos — Reels</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #050810; font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif; color: #fff; }
+  #fundo { position: absolute; inset: 0; background:
+      radial-gradient(900px 700px at 15% 8%, rgba(34, 211, 238, .28), transparent 60%),
+      radial-gradient(1000px 800px at 95% 95%, rgba(59, 130, 246, .30), transparent 60%),
+      linear-gradient(180deg, #060b18, #0a1226 55%, #070d1c); }
+  #grade { position: absolute; inset: 0; opacity: .07; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 60px 60px; }
+  #marca { position: absolute; top: 70px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 22px; font-size: 54px; font-weight: 800; letter-spacing: -1px; }
+  #marca img { width: 84px; height: 84px; border-radius: 22px; box-shadow: 0 8px 30px rgba(34, 211, 238, .35); }
+  #progresso { position: absolute; left: 0; bottom: 0; height: 12px; width: 0; background: linear-gradient(90deg, #22d3ee, #3b82f6); }
+
+  .camada { position: absolute; left: 0; right: 0; opacity: 0; transition: opacity 350ms, transform 450ms cubic-bezier(.2,.7,.2,1); }
+  .camada.on { opacity: 1; transform: none !important; }
+
+  /* gancho */
+  #gancho { top: 360px; padding: 0 80px; text-align: center; transform: translateY(40px); }
+  #gancho .t { font-size: 104px; line-height: 1.08; font-weight: 800; letter-spacing: -2px; text-wrap: balance; }
+  #gancho .t b { background: linear-gradient(90deg, #22d3ee, #60a5fa); -webkit-background-clip: text; color: transparent; }
+  #gancho .l { margin-top: 70px; font-size: 52px; line-height: 1.35; color: #cbd5e1; font-weight: 500; }
+
+  #fluxo { margin-top: 70px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  #fluxo .p { padding: 28px 54px; border-radius: 28px; font-size: 52px; font-weight: 700; background: rgba(255,255,255,.08); border: 2px solid rgba(34,211,238,.45); }
+  #fluxo .a { font-size: 56px; color: #22d3ee; line-height: 1; }
+
+  /* logo */
+  #logo { top: 420px; text-align: center; transform: scale(.92); }
+  #logo img { width: 380px; height: 380px; border-radius: 96px; box-shadow: 0 30px 90px rgba(34, 211, 238, .35); }
+  #logo .t { margin-top: 60px; font-size: 170px; font-weight: 800; letter-spacing: -6px; }
+  #logo .s { margin: 20px 100px 0; font-size: 56px; line-height: 1.3; color: #cbd5e1; font-weight: 500; }
+
+  /* tela */
+  #tela { top: 190px; text-align: center; transform: translateY(50px); }
+  #tela .h { padding: 0 70px; font-size: 82px; line-height: 1.08; font-weight: 800; letter-spacing: -2px; margin-bottom: 70px; text-wrap: balance; }
+  #tela .h b { color: #22d3ee; }
+  #cartao { width: 1000px; height: 625px; margin: 0 auto; border-radius: 34px; overflow: hidden; border: 3px solid rgba(255,255,255,.14);
+    box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 10px rgba(34, 211, 238, .08); background: #0b1020; }
+  #cartao img { width: 100%; height: 100%; display: block; object-fit: cover; transform: scale(1); will-change: transform; }
+
+  /* legenda (o que está sendo falado, pra quem assiste sem som) */
+  #legenda { top: 1190px; padding: 0 90px; text-align: center; font-size: 54px; line-height: 1.32; font-weight: 600; color: #f1f5f9; text-wrap: balance; }
+  #legenda.alto { top: 1130px; }
+
+  /* cta */
+  #cta { top: 430px; text-align: center; transform: scale(.94); }
+  #cta img { width: 300px; height: 300px; border-radius: 76px; box-shadow: 0 30px 90px rgba(34, 211, 238, .35); }
+  #cta .t { margin-top: 50px; font-size: 160px; font-weight: 800; letter-spacing: -5px; }
+  #cta .s { margin: 20px 90px 0; font-size: 66px; line-height: 1.25; font-weight: 700; color: #e2e8f0; text-wrap: balance; }
+  #cta .b { display: inline-block; margin-top: 90px; padding: 36px 78px; border-radius: 999px; font-size: 62px; font-weight: 800; color: #04101c;
+    background: linear-gradient(90deg, #22d3ee, #60a5fa); box-shadow: 0 20px 60px rgba(34, 211, 238, .45); }
+</style>
+<div id="fundo"></div><div id="grade"></div>
+<div id="marca"><img src="../../build/icon.png" alt=""><span>Prazos</span></div>
+
+<div id="gancho" class="camada"><div class="t" id="g-t"></div><div class="l" id="g-l"></div><div id="fluxo"></div></div>
+<div id="logo" class="camada"><img src="../../build/icon.png" alt=""><div class="t">Prazos</div><div class="s" id="l-s"></div></div>
+<div id="tela" class="camada"><div class="h" id="t-h"></div><div id="cartao"><img id="foto" alt=""></div></div>
+<div id="cta" class="camada"><img src="../../build/icon.png" alt=""><div class="t">Prazos</div><div class="s" id="c-s"></div><div class="b" id="c-b"></div></div>
+<div id="legenda" class="camada"></div>
+<div id="progresso"></div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const camadas = ['gancho', 'logo', 'tela', 'cta'];
+  // destaca a última palavra-chave do título com cor (negrito = gradiente)
+  const destaque = (t) => { const p = t.split(' '); if (p.length < 3) return t; const k = Math.ceil(p.length / 2); return p.slice(0, k).join(' ') + ' <b>' + p.slice(k).join(' ') + '</b>'; };
+  const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  window.iniciar = (totalMs) => {
+    const p = $('progresso');
+    p.style.transition = `width ${totalMs}ms linear`;
+    requestAnimationFrame(() => { p.style.width = '1080px'; });
+  };
+
+  // c = cena do roteiro; dur = duração em ms (a da fala)
+  window.cena = async (c, dur) => {
+    for (const id of [...camadas, 'legenda']) $(id).classList.remove('on');
+    await esperar(380);
+    if (c.tipo === 'gancho') {
+      $('g-t').innerHTML = destaque(c.titulo);
+      $('g-l').textContent = '';
+      $('fluxo').innerHTML = (c.fluxo || []).map((s) => '<div class="p">' + s + '</div>').join('<div class="a">&#8595;</div>');
+      $('gancho').classList.add('on');
+      $('legenda').textContent = c.texto;
+      $('legenda').classList.add('on');
+    } else if (c.tipo === 'logo') {
+      $('l-s').textContent = c.sub || '';
+      $('logo').classList.add('on');
+    } else if (c.tipo === 'tela') {
+      $('t-h').innerHTML = destaque(c.titulo);
+      const f = $('foto');
+      f.style.transition = 'none';
+      f.style.transformOrigin = c.origem || '50% 50%';
+      f.style.transform = 'scale(1)';
+      await new Promise((ok) => { f.onload = ok; f.onerror = ok; f.src = '../../documentacao/img/' + c.img; });
+      $('tela').classList.add('on');
+      $('legenda').textContent = c.texto;
+      $('legenda').classList.add('on');
+      void f.offsetWidth;
+      f.style.transition = `transform ${Math.max(dur, 1500)}ms ease-in-out`;
+      f.style.transform = 'scale(1.16)'; // zoom lento: chama a atenção pro detalhe
+    } else if (c.tipo === 'cta') {
+      $('c-s').textContent = c.sub || '';
+      $('c-b').textContent = c.botao || '';
+      $('cta').classList.add('on');
+    }
+  };
+</script>

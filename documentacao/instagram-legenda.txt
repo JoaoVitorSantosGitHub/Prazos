@@ -1,0 +1,22 @@
+LEGENDA SUGERIDA PARA O REELS (prazos-instagram.mp4 — vídeo mudo, com legendas na tela)
+
+Mais uma aplicação pública para o departamento pessoal: conheça o Prazos.
+
+Aplicativo para Windows que lê o seu Domínio (somente leitura) e gera, em PDF, o relatório de vencimentos de cada empresa:
+✅ férias com risco de pagamento em dobro
+✅ contratos de experiência
+✅ afastados e aniversariantes do mês
+
+Um PDF por empresa, listas de empresas para cada pessoa da equipe, o visual do seu escritório (logo, cores e rodapé) e, para quem usa o Gestta, entrega automática aos clientes pelo Express.
+
+👉 Baixe em: github.com/JoaoVitorSantosGitHub/Prazos (Releases)
+
+#contabilidade #escritoriocontabil #departamentopessoal #folhadepagamento #ferias #rotinasdp #contador #dominiosistemas #gestta #produtividade #automacao
+
+--
+NOTAS
+- Formato: vertical 9:16 (1080x1920), cerca de 67 s, H.264 a 30 fps, SEM áudio, MP4 padrão (índice no início, como o do NFS-e Download). O Reels aceita até 90 s; se quiser música, adicione pelo próprio Instagram.
+- Estilo igual ao reels do NFS-e Download: título em cima, gravação real do app (dados fictícios) no meio e a marca embaixo; termina em "Como baixar" com o endereço do GitHub.
+- ATENÇÃO: o slide final usa github.com/JoaoVitorSantosGitHub/Prazos e o arquivo Prazos_Setup.exe em Releases. Se o repositório tiver outro endereço, regrave com PRAZOS_GITHUB=<endereço> (scripts\demo\gravar-instagram.js).
+- Só usa o app com dados fictícios; nenhuma imagem de cliente, escritório ou do Gestta.
+- Tom de divulgação da aplicação pública, sem apelo de venda. O vídeo se regrava com scripts\demo\gravar-instagram.js (títulos das cenas no próprio script).

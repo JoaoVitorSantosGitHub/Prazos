@@ -1,0 +1,110 @@
+[
+    {
+        "id":  "01-intro",
+        "texto":  "Olá! Este é o Prazos. Ele lê o banco do Domínio, somente leitura, e gera em PDF o relatório de vencimentos de férias, contratos de experiência e afastamentos de cada empresa."
+    },
+    {
+        "id":  "02-conexao",
+        "texto":  "Na tela Conexão, informe o usuário e a senha do banco do Domínio. A senha não fica gravada no computador. Se faltar o driver ODBC, o aplicativo oferece um botão para instalá-lo."
+    },
+    {
+        "id":  "03-conectado",
+        "texto":  "Conectado! O indicador no topo mostra que o Domínio está respondendo. Se a conexão cair, o aplicativo reconecta sozinho."
+    },
+    {
+        "id":  "04-config",
+        "texto":  "No topo do Relatório, escolha o modelo do texto que abre o PDF e a pasta onde os arquivos serão gravados. Cada arquivo leva o ID, o CNPJ e a razão social da empresa."
+    },
+    {
+        "id":  "05-empresa",
+        "texto":  "Na aba Uma empresa, busque por nome, CNPJ ou ID. A prévia mostra os totais e os alertas: férias com risco, prazos regulares, contratos de experiência, afastados, segundo período e aniversariantes do mês."
+    },
+    {
+        "id":  "05b-previa",
+        "texto":  "Antes de salvar, clique em Pré-visualizar PDF para ver o relatório exatamente como ele sai. Na tela de modelos, o mesmo botão mostra como o texto do modelo fica no PDF, usando uma empresa de exemplo."
+    },
+    {
+        "id":  "06-salvar",
+        "texto":  "Clique em Salvar PDF na pasta para gerar o relatório da empresa."
+    },
+    {
+        "id":  "07-lote",
+        "texto":  "Na aba Em lote, você gera um PDF por empresa de uma só vez. Por padrão vale para todas as empresas ativas do Domínio, mas também é possível escolher as empresas uma a uma."
+    },
+    {
+        "id":  "08-atalhos",
+        "texto":  "Os atalhos marcam as empresas por você: Com avisos hoje, Prazos em 3 meses e Prazos em 6 meses. O botão Limpar seleção desmarca tudo."
+    },
+    {
+        "id":  "08b-listas",
+        "texto":  "Se o seu escritório divide as empresas por pessoa, crie listas personalizadas. Marque as empresas, clique em Salvar como lista e dê um nome. Depois, em Uma das minhas listas, escolha a lista para gerar só aquelas empresas. Os PDFs saem na mesma pasta de destino dos outros relatórios."
+    },
+    {
+        "id":  "09-lote-salvar",
+        "texto":  "Com as empresas marcadas, clique em Salvar PDFs na pasta. O andamento aparece na barra, e se uma empresa falhar, as outras continuam."
+    },
+    {
+        "id":  "e1-gestta",
+        "texto":  "Para entregar os relatórios aos clientes, o Prazos trabalha junto com o Gestta, do Onvio. O Prazos grava os PDFs em uma pasta, e o Express, um programa do Gestta, envia cada arquivo para a tarefa da empresa. Primeiro, entre no Onvio e abra o Gestão."
+    },
+    {
+        "id":  "e2-codigo",
+        "texto":  "Para entrar no Express, você precisa de um código de acesso. No Gestta, clique no seu avatar, no canto inferior esquerdo, e escolha Código de Acesso. O código aparece na tela e vale por poucos segundos."
+    },
+    {
+        "id":  "e3-express",
+        "texto":  "No computador, abra o Express pelo ícone da área de trabalho. Na tela de login, informe o e-mail do Gestta e clique em Fazer login por Código."
+    },
+    {
+        "id":  "e4-login",
+        "texto":  "Volte ao Gestta, copie o código, cole no Express e clique em Entrar. O Express confirma que os arquivos da pasta foram encaminhados."
+    },
+    {
+        "id":  "e5-pasta",
+        "texto":  "O Express usa uma pasta própria no computador, chamada Express. Os arquivos colocados nela são enviados ao Gestta. No Prazos, escolha essa pasta como pasta de destino e use Salvar PDF ou Salvar PDFs na pasta."
+    },
+    {
+        "id":  "t1-onvio",
+        "texto":  "Agora, a tarefa. No Onvio, abra o menu de aplicações e escolha Gestão."
+    },
+    {
+        "id":  "t2-configure",
+        "texto":  "No Gestta, clique em Configure e, em Tarefas recorrentes, escolha Gerenciar."
+    },
+    {
+        "id":  "t3-recorrentes",
+        "texto":  "Procure a tarefa pelo nome. Aqui ela se chama Relatório de Vencimentos de Férias, Experiência e Afastamentos. Se ainda não existir, crie com Nova tarefa. Clique no nome para editar."
+    },
+    {
+        "id":  "t4-detalhes",
+        "texto":  "Em Detalhes, defina quando a tarefa acontece. No exemplo, ela é semanal, vence na segunda-feira, fica no departamento Pessoal e notifica o cliente por e-mail e WhatsApp. Na aba Clientes, adicione as empresas que vão receber o relatório: à esquerda estão os clientes do sistema, e à direita, os clientes da tarefa."
+    },
+    {
+        "id":  "t5-anexos",
+        "texto":  "Na aba Atividades com anexo, vincule o template de documento do relatório. Ele ensina o Gestta a reconhecer o PDF que o Prazos gera."
+    },
+    {
+        "id":  "t6-template",
+        "texto":  "No template, a validação confere o conteúdo de cada PDF: o título do relatório, a palavra CNPJ e a palavra Empresa, além da data no formato dia, mês e ano. O PDF do Prazos já traz tudo isso."
+    },
+    {
+        "id":  "t7-validar",
+        "texto":  "Para testar, clique em Subir modelo e salvar e escolha um PDF gerado pelo Prazos. Depois, clique em Validar modelo e salvar: com as quatro verificações marcadas, o modelo está correto. Clique em Salvar."
+    },
+    {
+        "id":  "10-modelos",
+        "texto":  "Em Modelos de texto, crie o texto que abre o relatório. Use asteriscos para negrito, sublinhado para itálico e as variáveis entre chaves. Também é possível importar o texto de um documento do Word."
+    },
+    {
+        "id":  "10b-aparencia",
+        "texto":  "Na aba Aparência do PDF, cada escritório coloca a sua identidade: o logo no canto superior esquerdo, a marca d\u0027água, o rodapé com endereço e contatos e as cores do relatório. A prévia ao lado mostra o PDF de verdade e se atualiza sozinha. Quando estiver bom, é só salvar."
+    },
+    {
+        "id":  "11-temas",
+        "texto":  "Na tela Temas, escolha o visual do aplicativo: Neon, Grafite, Claro, Oceano ou Rosa. A escolha fica lembrada neste computador."
+    },
+    {
+        "id":  "12-fim",
+        "texto":  "Pronto! Esse é o Prazos. Em caso de dúvida sobre os dados, fale com o suporte do Domínio."
+    }
+]

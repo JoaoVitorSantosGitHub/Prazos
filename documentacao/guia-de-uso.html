@@ -1,0 +1,491 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Prazos — Guia de uso</title><style>
+  @page { size: A4; margin: 16mm 14mm; }
+  body { font: 11pt/1.5 "Segoe UI", Arial, sans-serif; color: #1c2430; }
+  h1 { font-size: 24pt; margin: 0 0 6pt; color: #1351b4; } h2 { font-size: 15pt; margin-top: 22pt; border-bottom: 2px solid #1351b4; padding-bottom: 3pt; page-break-after: avoid; }
+  h3 { font-size: 12pt; margin-top: 14pt; page-break-after: avoid; }
+  img { max-width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; margin: 6pt 0; page-break-inside: avoid; }
+  table { border-collapse: collapse; width: 100%; font-size: 10pt; margin: 8pt 0; page-break-inside: avoid; }
+  th, td { border: 1px solid #cbd5e1; padding: 4pt 7pt; text-align: left; vertical-align: top; } th { background: #eef2f8; }
+  code { background: #eef2f8; padding: 0 3pt; border-radius: 3pt; font-size: 90%; }
+  pre { background: #eef2f8; padding: 8pt; border-radius: 6pt; overflow: hidden; } pre code { background: none; }
+  blockquote { margin: 8pt 0; padding: 4pt 12pt; border-left: 4px solid #1351b4; background: #f3f6fc; color: #334155; }
+  hr { border: none; border-top: 1px solid #cbd5e1; margin: 14pt 0; }
+</style></head><body><h1>Prazos — Guia de uso</h1>
+<p>O <strong>Prazos</strong> é um aplicativo para Windows que lê o banco do Domínio (<strong>somente leitura</strong>) e gera, em PDF, o
+<strong>Relatório de Vencimentos de Férias, Experiência e Afastamentos</strong> de cada empresa: de uma empresa, de várias ou de todas as ativas de uma só vez.</p>
+<blockquote>
+<p>Não tem login, não tem servidor e não tem banco de dados próprio. Tudo roda no seu computador.
+Vídeo com o passo a passo, incluindo a entrega pelo Gestta: <strong>prazos-tutorial.mp4</strong> (mesma pasta deste guia).</p>
+</blockquote>
+<hr>
+<h2>1. Antes de começar</h2>
+<table>
+<thead>
+<tr>
+<th>Você precisa de</th>
+<th>Como conferir</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows 10 ou 11 (64 bits)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Driver ODBC <strong>SQL Anywhere 17</strong> (64 bits)</td>
+<td>O mesmo usado pelo Domínio Connect. Se faltar, o próprio app oferece o botão <strong>Instalar driver ODBC</strong> (ver seção 3).</td>
+</tr>
+<tr>
+<td>Acesso de rede ao servidor do Domínio</td>
+<td>O PC precisa alcançar o servidor do Domínio (endereço:porta, normalmente porta 2638). Peça o endereço ao suporte do Domínio ou a quem cuida da rede.</td>
+</tr>
+<tr>
+<td>Usuário e senha do banco do Domínio</td>
+<td>O mesmo usuário &quot;Externo&quot; (somente leitura) usado em outros sistemas que leem o Domínio.</td>
+</tr>
+</tbody></table>
+<h2>2. Instalação</h2>
+<ol>
+<li>Execute <strong>Prazos_Setup.exe</strong>.</li>
+<li>Escolha a pasta de instalação (ou deixe a sugerida) e conclua. O instalador cria o atalho <strong>Prazos</strong> na Área de Trabalho e no Menu Iniciar.</li>
+<li>O Windows pode mostrar o aviso &quot;O Windows protegeu o computador&quot; (SmartScreen), porque o instalador não é assinado digitalmente. Clique em <strong>Mais informações → Executar assim mesmo</strong>.</li>
+</ol>
+<p><strong>Atualizar:</strong> rode o novo <code>Prazos_Setup.exe</code> por cima; os modelos e a pasta de destino são mantidos.
+<strong>Desinstalar:</strong> Configurações do Windows → Aplicativos → Prazos.</p>
+<p>Dados guardados neste computador (pasta <code>%APPDATA%\Prazos</code>): <code>config.json</code> (usuário e servidor lembrados e pasta de destino), <code>modelos-relatorio.json</code> (modelos de texto), <code>aparencia.json</code> (logo, marca d’água, rodapé e cores do PDF) e <code>listas-empresas.json</code> (suas listas de empresas). <strong>A senha nunca é gravada.</strong></p>
+<h2>3. Conexão com o Domínio</h2>
+<p><img src="img/01-conexao.png" alt="Tela Conexão"></p>
+<ol>
+<li>Abra o <strong>Prazos</strong>. A primeira tela é <strong>Conexão</strong>.</li>
+<li>Informe o <strong>usuário</strong> e a <strong>senha</strong> do banco do Domínio. Marque <strong>Lembrar usuário</strong> se quiser que o usuário já venha preenchido na próxima vez (a senha você digita sempre).</li>
+<li>Clique em <strong>Conectar</strong>. Quando der certo, o app abre direto na tela <strong>Relatório</strong>.</li>
+</ol>
+<p><img src="img/02-conexao-preenchida.png" alt="Conexão preenchida, com a área Avançado aberta"></p>
+<p><strong>Sem digitar senha:</strong> se este PC já tem uma conexão ODBC do Windows para o Domínio (a mesma que outros sistemas do escritório usam), aparece no topo o quadro <strong>Conexão já configurada neste PC</strong> com o botão <strong>Entrar com</strong> o nome da conexão. O usuário e a senha já estão guardados nessa conexão, então não precisa digitar nada.</p>
+<p><strong>Servidor do Domínio:</strong> o endereço do computador onde roda o banco, com a porta (ex.: <code>192.168.0.10:2638</code>). O app já preenche sozinho se achar o endereço nas conexões ODBC deste PC; senão, informe uma vez e ele fica lembrado.</p>
+<p><strong>Avançado:</strong> driver (<code>SQL Anywhere 17</code>), nome do servidor (<code>srvContabil</code>) e banco (<code>Contabil</code>). Já vêm com os nomes da instalação padrão do Domínio; só mude se a sua for diferente.</p>
+<p><strong>Indicador no topo:</strong> a bolinha verde &quot;Domínio conectado&quot; mostra que o banco está respondendo. Se a conexão cair (computador dormiu, rede oscilou), o app <strong>tenta reconectar sozinho</strong> a cada verificação (1 minuto). Se não conseguir, o indicador fica vermelho e o Relatório pede para conectar de novo.</p>
+<p><strong>Desconectar:</strong> na tela Conexão, com o app conectado, aparece o botão <strong>Desconectar</strong>.</p>
+<h3>Se aparecer &quot;Driver ODBC … não está instalado&quot;</h3>
+<p>Aparece um aviso amarelo com o botão <strong>Instalar driver ODBC</strong>. Ele abre uma janela do PowerShell com o script de instalação e pede permissão de administrador.
+O script procura o instalador (<code>sqla17*.exe</code> ou <code>.msi</code>) ao lado do script, na pasta <strong>Downloads</strong> ou numa pasta informada; também aceita um link direto. A SAP não oferece download público do driver, então <strong>peça o instalador ao suporte do Domínio</strong> (ou a quem administra o servidor) e coloque na pasta Downloads antes de clicar.</p>
+<h2>4. Gerando relatórios</h2>
+<p>A tela <strong>Relatório</strong> começa com duas escolhas que valem para tudo:</p>
+<p><img src="img/03-relatorio-topo.png" alt="Topo da tela Relatório"></p>
+<ul>
+<li><strong>Modelo do texto:</strong> o texto que abre o PDF. <em>Padrão</em> usa o modelo marcado como padrão (ou nenhum texto, se não houver).</li>
+<li><strong>Pasta de destino dos PDFs:</strong> clique em <strong>Escolher…</strong> (ou <strong>Trocar</strong>). Os PDFs são gravados direto lá, por exemplo na pasta do app que sincroniza com o Onvio Processos. Cada arquivo se chama <strong><code>ID - CNPJ - Razão social.pdf</code></strong>; se já existir um com o mesmo nome, ele é <strong>substituído</strong>. O ícone ao lado abre a pasta.</li>
+</ul>
+<p>Abaixo ficam três abas: <strong>Uma empresa</strong>, <strong>Em lote</strong> e <strong>Modelos de texto</strong>.</p>
+<h3>4.1 Uma empresa</h3>
+<ol>
+<li>Na aba <strong>Uma empresa</strong>, digite parte do nome, o CNPJ ou o ID e escolha a empresa na lista.</li>
+<li>O app consulta o Domínio e mostra a <strong>prévia</strong>: os totais no topo e os alertas.</li>
+</ol>
+<p><img src="img/04-previa-topo.png" alt="Prévia: totais e alertas críticos"></p>
+<p><img src="img/05-previa-alertas.png" alt="Prévia: demais alertas"></p>
+<ol start="3">
+<li>Clique em <strong>Pré-visualizar PDF</strong> para ver o relatório <strong>exatamente como vai sair</strong>, página por página. Nada é gravado.</li>
+</ol>
+<p><img src="img/06-previa-pdf.png" alt="Pré-visualização do PDF"></p>
+<ol start="4">
+<li>Clique em <strong>Salvar PDF na pasta</strong>. Se ainda não escolheu a pasta, o Windows pergunta onde salvar.</li>
+</ol>
+<p><img src="img/07-pdf-salvo.png" alt="PDF salvo"></p>
+<p><strong>Atualizar</strong> consulta o Domínio de novo (use depois de alterar algo lá; o app guarda os resultados por até 1 minuto).</p>
+<h3>4.2 Em lote (um PDF por empresa)</h3>
+<p><img src="img/08-lote.png" alt="Aba Em lote"></p>
+<ul>
+<li><strong>Todas as empresas ativas no Domínio</strong> (padrão): gera para todas as empresas com situação <em>Ativa</em>. Mostra quantas são.</li>
+<li><strong>Uma das minhas listas:</strong> gera só para as empresas de uma lista que você montou (ver abaixo).</li>
+<li><strong>Escolher as empresas:</strong> marque uma a uma, com filtro por nome, CNPJ ou ID (até <strong>1000</strong> por lote).</li>
+</ul>
+<p>Atalhos que <strong>marcam</strong> empresas por você (somam às já marcadas):</p>
+<table>
+<thead>
+<tr>
+<th>Botão</th>
+<th>Marca as empresas que…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Com avisos hoje</strong></td>
+<td>têm pelo menos um aviso <strong>hoje</strong>: colaborador que já pode tirar férias, alerta de pagamento em dobro (90, 60 ou 30 dias, ou já vencido), 2º período a vencer, contrato de experiência em andamento ou afastado. Quem só tem aniversariante no mês <strong>não</strong> entra.</td>
+</tr>
+<tr>
+<td><strong>Prazos em 3 meses</strong></td>
+<td>têm algum prazo que cai <strong>até daqui a 3 meses</strong>, contando de hoje: limite de gozo de férias, vencimento/limite do 2º período ou fim do contrato de experiência (1º período, quando a prorrogação é só prevista). Prazos já vencidos também entram. Afastamentos e aniversários não contam.</td>
+</tr>
+<tr>
+<td><strong>Prazos em 6 meses</strong></td>
+<td>o mesmo, para os próximos 6 meses (inclui tudo o que o de 3 meses marcaria, mais as empresas com prazo folgado).</td>
+</tr>
+<tr>
+<td><strong>Limpar seleção</strong></td>
+<td>desmarca tudo.</td>
+</tr>
+</tbody></table>
+<p>Como usar: os botões só <strong>marcam empresas</strong> na lista, com os dados do Domínio no momento do clique; nada é gerado até você exportar. Cada clique <strong>soma</strong> às empresas já marcadas (use &quot;Limpar seleção&quot; para recomeçar), e você pode desmarcar ou marcar mais antes de exportar. Use 3 meses para o que pede ação já e 6 meses para planejar com folga. Dentro do app, o mesmo texto está em &quot;Como funcionam os botões de atalho?&quot;, logo abaixo dos botões.</p>
+<p><img src="img/09-atalhos.png" alt="Atalhos de seleção"></p>
+<p>Clique em <strong>Salvar PDFs na pasta (N empresas)</strong>. O app gera <strong>4 por vez</strong>, mostra a barra de andamento e o nome do arquivo atual; se uma empresa falhar, <strong>as outras continuam</strong> e, no fim, a mensagem informa quantas foram gravadas e o primeiro erro. <strong>Parar</strong> interrompe o lote.</p>
+<p><img src="img/10-lote-andamento.png" alt="Lote em andamento"></p>
+<p><img src="img/11-lote-concluido.png" alt="Lote concluído"></p>
+<blockquote>
+<p>O lote exige a pasta de destino escolhida.</p>
+</blockquote>
+<p><strong>Listas personalizadas de empresas.</strong> Em escritórios em que cada pessoa cuida de uma carteira de empresas, salve uma <strong>lista</strong> para cada uma e gere só aquelas empresas, sem marcar tudo de novo a cada vez:</p>
+<ol>
+<li>Em <strong>Escolher as empresas</strong>, marque as empresas da carteira (use o filtro, os atalhos ou os dois).</li>
+<li>Clique em <strong>Salvar como lista…</strong>, digite o nome (por exemplo, <em>Carteira da Ana</em>) e clique em <strong>Salvar lista</strong>.</li>
+</ol>
+<p><img src="img/21-lista-nome.png" alt="Dando nome à lista"></p>
+<p><img src="img/22-lista-salva.png" alt="Lista salva"></p>
+<ol start="3">
+<li>Da próxima vez, escolha <strong>Uma das minhas listas</strong>, selecione a lista e clique em <strong>Salvar PDFs na pasta</strong>. Os PDFs saem <strong>na mesma pasta de destino</strong> dos demais relatórios (por exemplo, a pasta do Express).</li>
+</ol>
+<p><img src="img/23-lista-escolhida.png" alt="Lista escolhida para gerar o lote"></p>
+<p>Para mudar uma lista, em <strong>Escolher as empresas</strong> use <strong>Carregar uma lista…</strong> (ou <strong>Ver e editar</strong>, na lista escolhida), ajuste as marcações e clique em <strong>Atualizar “nome da lista”</strong>. <strong>Excluir lista</strong> apaga só a lista; as empresas continuam no Domínio.</p>
+<ul>
+<li>O nome da lista é único (maiúsculas e minúsculas não contam). Cada lista guarda até 1000 empresas, e cada computador pode ter até 100 listas.</li>
+<li>A lista guarda só o <strong>código da empresa</strong>. Se alguma empresa deixar de existir no Domínio, ela é ignorada e o app avisa quantas foram.</li>
+<li>As listas ficam no computador e no usuário do Windows de quem as criou (arquivo <code>listas-empresas.json</code>). Para usar as mesmas listas em outro computador, copie esse arquivo para a mesma pasta <code>%APPDATA%\Prazos</code> de lá.</li>
+</ul>
+<h3>4.3 Modelos de texto</h3>
+<p>O modelo é o texto que <strong>abre o PDF</strong>, antes dos alertas. Sem modelo, o PDF traz só os alertas.</p>
+<p><img src="img/12-modelos.png" alt="Lista de modelos"></p>
+<p>Clique em <strong>+ Novo modelo</strong> (ou <strong>Editar</strong> em um existente):</p>
+<p><img src="img/13-editor-modelo.png" alt="Editor de modelo"></p>
+<ul>
+<li><strong>Nome:</strong> único. <strong>Texto:</strong> até 1500 caracteres.</li>
+<li><strong>Formatação:</strong> <code>*negrito*</code> e <code>_itálico_</code> (a mesma marcação do WhatsApp). Os botões <strong>B</strong> e <strong>I</strong> inserem as marcas.</li>
+<li><strong>Variáveis</strong> (botões &quot;Inserir:&quot; ou digitadas entre chaves duplas): <code>{{empresa}}</code>, <code>{{id}}</code>, <code>{{cnpj}}</code>, <code>{{data}}</code>, <code>{{quantidade}}</code> (número de avisos) e <code>{{avisos}}</code> (a lista de avisos). Qualquer outra <code>{{coisa}}</code> é recusada ao salvar, para não sair &quot;{{empresaa}}&quot; no PDF.</li>
+<li><strong>Importar do Word…:</strong> traz o texto de um arquivo <strong>.docx</strong> (parágrafos viram linhas; negrito e itálico viram <code>*…*</code> e <code>_…_</code>; listas viram marcadores). As <code>{{variáveis}}</code> escritas no Word valem. Arquivos <code>.doc</code> antigos: abra no Word e use <em>Salvar como → Documento do Word (.docx)</em>.</li>
+<li><strong>Usar como padrão no relatório:</strong> só um modelo é o padrão por vez. <strong>Modelo ativo:</strong> desmarque para tirar da lista de escolha sem apagar.</li>
+<li><strong>Pré-visualizar PDF:</strong> mostra como o PDF fica <strong>com o texto que está no editor</strong> (empresa de exemplo, dados fictícios), sem precisar salvar.</li>
+</ul>
+<p><img src="img/14-previa-modelo.png" alt="Pré-visualização do modelo"></p>
+<p>Na lista de modelos, <strong>Visualizar</strong> faz o mesmo para um modelo já salvo, <strong>Editar</strong> altera e <strong>Excluir</strong> pede confirmação.</p>
+<h3>4.4 Aparência do PDF</h3>
+<p>O app não traz a marca de nenhum escritório: o PDF sai <strong>neutro</strong> (sem logo e sem marca d’água) até você colocar a sua identidade. A aparência é <strong>uma só por instalação</strong> e vale para todos os relatórios (uma empresa, lote e pré-visualizações).</p>
+<p><img src="img/17-aparencia-padrao.png" alt="Aparência do PDF, ainda no padrão"></p>
+<p>Na aba <strong>Aparência do PDF</strong>, o formulário fica à esquerda e a <strong>prévia do PDF de verdade</strong> à direita; ela se atualiza sozinha enquanto você mexe.</p>
+<ul>
+<li><strong>Logo:</strong> imagem PNG (de preferência com fundo transparente) ou JPEG de até 3 MB, no canto superior esquerdo. Ajuste a largura ou desmarque <em>Mostrar o logo</em>.</li>
+<li><strong>Marca d’água:</strong> imagem clara no centro das páginas, atrás do conteúdo. Ajuste a <strong>opacidade</strong> e o <strong>tamanho</strong>.</li>
+<li><strong>Rodapé:</strong> dois modos. <strong>Texto</strong>: um bloco à esquerda e outro à direita (endereço, e-mail, telefone), mais a barra colorida na base. <strong>Imagem</strong>: uma faixa na largura da página (por exemplo 1800 × 220 px) com o endereço, ícones e contatos do seu papel timbrado.</li>
+<li><strong>Cores:</strong> faixa do topo, título, destaque (e Alerta de Contrato), férias com risco, prazos regulares, 2º período de férias, aniversariantes e texto do modelo. Os tons de fundo dos cartões saem da cor escolhida. <strong>Restaurar as cores padrão</strong> desfaz só as cores.</li>
+<li><strong>Contato de ajuda:</strong> o telefone/WhatsApp do quadro &quot;Precisa de ajuda com esses dados?&quot; no fim do relatório. Em branco, o quadro não aparece.</li>
+</ul>
+<p><img src="img/18-aparencia-papel-timbrado.png" alt="Papel timbrado de exemplo carregado: logo, marca d’água e rodapé em imagem"></p>
+<p><img src="img/19-aparencia-cores.png" alt="Cor do título trocada; a prévia acompanha"></p>
+<p>Clique em <strong>Salvar aparência</strong> (o aviso &quot;Alterações ainda não salvas&quot; some). <strong>Desfazer</strong> volta ao último salvo e <strong>Restaurar padrão</strong> apaga logo, marca d’água, textos e cores personalizados.</p>
+<p><img src="img/20-aparencia-salva.png" alt="Aparência salva"></p>
+<p>Dica: se você já tem um papel timbrado em PDF/imagem, recorte o logo, a marca d’água e o rodapé em arquivos separados (PNG ou JPEG) e carregue cada um no seu campo. Na pasta <code>documentacao\exemplo-papel-timbrado</code> há um conjunto de exemplo de um escritório fictício (logo, marca d’água e rodapé) para testar o recurso.</p>
+<h2>5. Entrega pelo Gestta (Express e tarefa recorrente)</h2>
+<p>Esta parte é opcional: serve para quem usa o <strong>Gestta</strong> (Onvio Gestão) e quer que os PDFs cheguem sozinhos às tarefas dos clientes. O Prazos continua só gerando os arquivos; quem envia é o <strong>Express</strong>, um programa do próprio Gestta.</p>
+<blockquote>
+<p>Nas imagens desta seção, <strong>e-mail, código de acesso, nomes de clientes e CNPJ, favoritos, endereço do navegador e a área de trabalho foram ocultados com blur.</strong> Vídeo com o passo a passo (cenas finais): <strong>prazos-tutorial.mp4</strong>.</p>
+</blockquote>
+<h3>5.1 Como funciona</h3>
+<ol>
+<li>O <strong>Prazos</strong> grava os PDFs numa pasta, com o nome <code>ID - CNPJ - Razão social.pdf</code>.</li>
+<li>Essa pasta é a pasta do <strong>Express</strong>. O Express envia cada arquivo para o Gestta.</li>
+<li>No Gestta, uma <strong>tarefa recorrente</strong> tem o relatório como atividade com anexo, ligado a um <strong>template de documento</strong>. O template confere o conteúdo do PDF e permite a baixa automática da atividade.</li>
+</ol>
+<p>Por isso são duas configurações, feitas <strong>uma vez</strong>: entrar no Express (5.2 e 5.3) e preparar a tarefa e o template no Gestta (5.4 e 5.5). Depois disso a rotina é só gerar os PDFs (5.6).</p>
+<h3>5.2 Entrar no Express (código de acesso)</h3>
+<p>O Express pede login. O jeito mais seguro é o <strong>login por código</strong>, que dispensa a senha.</p>
+<ol>
+<li>No navegador, entre no <strong>Onvio</strong> e abra <strong>Gestão</strong> pelo menu de aplicações.</li>
+</ol>
+<p><img src="img/gestta/g01-onvio-inicio.jpg" alt="Onvio: página inicial"></p>
+<p><img src="img/gestta/g02-onvio-aplicacoes.jpg" alt="Menu de aplicações do Onvio, com a opção Gestão"></p>
+<ol start="2">
+<li>Já no Gestta, clique no seu <strong>avatar</strong> (canto inferior esquerdo) e escolha <strong>Código de Acesso</strong>.</li>
+</ol>
+<p><img src="img/gestta/g03-gestta-dashboard.jpg" alt="Gestta: painel inicial"></p>
+<p><img src="img/gestta/g04-gestta-avatar.jpg" alt="Menu do avatar: Perfil, Código de Acesso e Sair"></p>
+<ol start="3">
+<li>Na janela <strong>Autenticação Gestta</strong>, clique em <strong>Gerar código</strong>. O código aparece na tela e <strong>vale por poucos segundos</strong>; o botão ao lado dele copia o código.</li>
+</ol>
+<p><img src="img/gestta/g05-codigo-acesso.jpg" alt="Código de acesso gerado (ocultado na imagem)"></p>
+<ol start="4">
+<li>No computador, abra o <strong>Express</strong> pelo ícone da área de trabalho.</li>
+</ol>
+<p><img src="img/gestta/g06-express-icone.jpg" alt="Ícone do Express na área de trabalho"></p>
+<ol start="5">
+<li>Na tela de login, informe o <strong>e-mail do Gestta</strong> e clique em <strong>Fazer login por Código</strong> (para voltar ao login com senha, o mesmo link vira <strong>Fazer login por Senha</strong>).</li>
+</ol>
+<p><img src="img/gestta/g07-express-login.jpg" alt="Tela de login do Express"></p>
+<p><img src="img/gestta/g08-express-email.jpg" alt="E-mail informado (ocultado na imagem)"></p>
+<ol start="6">
+<li>Cole o código no campo <strong>Código</strong> e clique em <strong>Entrar</strong>. Se o código expirar, gere outro no Gestta e tente de novo.</li>
+</ol>
+<p><img src="img/gestta/g09-express-codigo.jpg" alt="Código colado no Express"></p>
+<ol start="7">
+<li>Com o login feito, o Express mostra a mensagem de que os arquivos da pasta foram encaminhados. O botão <strong>LOGOUT</strong>, no canto, encerra a sessão.</li>
+</ol>
+<p><img src="img/gestta/g10-express-pronto.jpg" alt="Express conectado"></p>
+<h3>5.3 A pasta Express e o Prazos</h3>
+<p>O Express trabalha com uma pasta própria no computador, chamada <strong>Express</strong> (no exemplo, na área de trabalho). <strong>Os arquivos colocados nela são enviados ao Gestta.</strong></p>
+<p><img src="img/gestta/g11-pasta-express.jpg" alt="Pasta Express, ainda vazia"></p>
+<p>No Prazos, na tela <strong>Relatório</strong>, em <strong>Pasta de destino dos PDFs</strong>, clique em <strong>Escolher…</strong> e selecione essa pasta <strong>Express</strong>. A partir daí, <strong>Salvar PDF na pasta</strong> e <strong>Salvar PDFs na pasta</strong> (lote) gravam direto nela, e o Express cuida do envio.</p>
+<h3>5.4 Configurar a tarefa recorrente</h3>
+<ol>
+<li>No Gestta, clique em <strong>Configure</strong>. No quadro <strong>Tarefas recorrentes</strong>, escolha <strong>Gerenciar</strong>.</li>
+</ol>
+<p><img src="img/gestta/g12-menu-configure.jpg" alt="Menu Configure do Gestta"></p>
+<ol start="2">
+<li>Na lista de recorrentes, use a busca para achar a tarefa pelo nome (aqui, <strong>Relatório de Vencimentos de Férias, Experiência e Afastamentos</strong>). Se ainda não existir, crie com <strong>+ Nova tarefa</strong>.</li>
+</ol>
+<p><img src="img/gestta/g13-recorrentes.jpg" alt="Lista de tarefas recorrentes"></p>
+<p><img src="img/gestta/g14-recorrentes-busca.jpg" alt="Busca pelo nome da tarefa"></p>
+<ol start="3">
+<li>Clique no nome da tarefa para editar. Na aba <strong>Detalhes</strong>, a configuração usada no exemplo é:</li>
+</ol>
+<p><img src="img/gestta/g15-tarefa-detalhes.jpg" alt="Edição da tarefa: aba Detalhes"></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor no exemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Nome</td>
+<td>Relatório de Vencimentos de Férias, Experiência e Afastamentos</td>
+</tr>
+<tr>
+<td>Concluir automaticamente a tarefa ao encerrar as atividades</td>
+<td>Ligado</td>
+</tr>
+<tr>
+<td>Esfera</td>
+<td>Regime federal</td>
+</tr>
+<tr>
+<td>Frequência</td>
+<td>Semanal</td>
+</tr>
+<tr>
+<td>Data legal</td>
+<td>Segunda-feira</td>
+</tr>
+<tr>
+<td>Data meta / Competência</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Dia útil</td>
+<td>Ligado</td>
+</tr>
+<tr>
+<td>Departamento</td>
+<td>Pessoal</td>
+</tr>
+<tr>
+<td>Notificar o cliente</td>
+<td>Por e-mail e por WhatsApp (conforme o seu escritório quiser)</td>
+</tr>
+</tbody></table>
+<p>Os valores dependem da rotina do seu escritório; o que importa para o Prazos é que a tarefa exista, seja recorrente e tenha o template ligado (passos seguintes).</p>
+<ol start="4">
+<li>Na aba <strong>Clientes</strong>, adicione as empresas que vão receber o relatório. À esquerda ficam os <strong>clientes do sistema</strong> e, à direita, os <strong>clientes da tarefa</strong>; marque as empresas e use <strong>Adicionar</strong> (ou <strong>Excluir</strong> para tirar da tarefa).</li>
+</ol>
+<p><img src="img/gestta/g16-tarefa-clientes.jpg" alt="Aba Clientes (nomes e CNPJ ocultados na imagem)"></p>
+<ol start="5">
+<li>Na aba <strong>Atividades com anexo</strong>, deve constar o documento <strong>Relatório de Vencimentos de Férias, Experiência e Afastamentos</strong>. Ele é o template de documento que reconhece o PDF e dá a <strong>baixa automática</strong> da atividade. Clique no nome para abrir o template.</li>
+</ol>
+<p><img src="img/gestta/g17-tarefa-anexos.jpg" alt="Aba Atividades com anexo"></p>
+<h3>5.5 Configurar o template do documento</h3>
+<p>O template diz ao Gestta como reconhecer o PDF do Prazos. Ele fica em <strong>Configure → Templates de Documentos</strong>, e abre também pelo link da atividade com anexo.</p>
+<ol>
+<li>Abra o documento e vá na aba <strong>Templates</strong>. O modelo aparece na lista, marcado como válido.</li>
+</ol>
+<p><img src="img/gestta/g18-template-lista.jpg" alt="Lista de templates do documento"></p>
+<ol start="2">
+<li>Abra o template. Em <strong>Conteúdo</strong>, cada linha é um texto que <strong>precisa existir no PDF</strong>; em <strong>Formatos de data</strong>, o formato de data aceito:</li>
+</ol>
+<p><img src="img/gestta/g19-template-regras.jpg" alt="Regras do template"></p>
+<table>
+<thead>
+<tr>
+<th>Regra</th>
+<th>O que confere</th>
+<th>Onde está no PDF do Prazos</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Relatório de Vencimentos de Férias, Experiência e Afastamentos</td>
+<td>O título</td>
+<td>Faixa do título</td>
+</tr>
+<tr>
+<td>CNPJ</td>
+<td>A palavra CNPJ</td>
+<td>Linha &quot;ID … · CNPJ …&quot;</td>
+</tr>
+<tr>
+<td>Empresa</td>
+<td>A palavra Empresa</td>
+<td>&quot;Empresa: …&quot;</td>
+</tr>
+<tr>
+<td>Formato de data <strong>DD/MM/AAAA</strong></td>
+<td>A data</td>
+<td>&quot;Data de Emissão: dd/mm/aaaa&quot;</td>
+</tr>
+</tbody></table>
+<p>Deixe <strong>Validar pela competência</strong> ligado, como no exemplo.</p>
+<ol start="3">
+<li>Para <strong>testar</strong>: clique em <strong>Subir modelo e salvar</strong> e escolha um PDF gerado pelo Prazos (por exemplo, o de uma empresa). Depois clique em <strong>Validar modelo e salvar</strong>. Se as quatro verificações ficarem marcadas, o modelo está correto.</li>
+</ol>
+<p><img src="img/gestta/g20-template-validacoes.jpg" alt="Validações do modelo todas marcadas"></p>
+<ol start="4">
+<li>Clique em <strong>Salvar</strong>. O Gestta avisa que o template foi atualizado.</li>
+</ol>
+<p><img src="img/gestta/g21-template-salvo.jpg" alt="Template de documento atualizado"></p>
+<blockquote>
+<p>Se alguma verificação falhar, o PDF testado não traz aquele texto. Gere o arquivo de novo pelo Prazos (não renomeie nem edite o PDF) e repita o teste. Se você mudar o <strong>título</strong> ou o texto do relatório em algum momento, a regra do template precisa ser atualizada.</p>
+</blockquote>
+<h3>5.6 Rotina para enviar os relatórios</h3>
+<ol>
+<li>Abra o <strong>Express</strong> e confira que está logado (se não estiver, faça o login por código, 5.2).</li>
+<li>Abra o <strong>Prazos</strong> e conecte ao Domínio.</li>
+<li>Na tela <strong>Relatório</strong>, confira que a <strong>Pasta de destino dos PDFs</strong> é a pasta <strong>Express</strong>.</li>
+<li>Em <strong>Em lote</strong>, escolha <strong>Uma das minhas listas</strong> (a carteira de cada pessoa) ou marque as empresas (por exemplo, <strong>Com avisos hoje</strong> ou <strong>Prazos em 3 meses</strong>, seção 4.2) e clique em <strong>Salvar PDFs na pasta</strong>.</li>
+<li>O Express envia os arquivos ao Gestta. Confira no Gestta, na tarefa recorrente, se as atividades foram baixadas.</li>
+</ol>
+<p>Se o seu escritório gera o relatório toda semana, faça isso na segunda-feira, que é a data legal da tarefa de exemplo.</p>
+<h3>5.7 Problemas comuns no Gestta e no Express</h3>
+<table>
+<thead>
+<tr>
+<th>Sintoma</th>
+<th>O que fazer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>O código de acesso não é aceito</td>
+<td>Ele expira em poucos segundos: gere outro em <strong>Código de Acesso</strong> e cole logo em seguida.</td>
+</tr>
+<tr>
+<td>O Express volta para a tela de login</td>
+<td>A sessão foi encerrada (<strong>LOGOUT</strong> ou tempo); entre de novo por código.</td>
+</tr>
+<tr>
+<td>O arquivo não chega ao Gestta</td>
+<td>Confirme que o Express está logado e que o PDF foi gravado <strong>dentro</strong> da pasta Express (e não em outra pasta).</td>
+</tr>
+<tr>
+<td>A validação do template falha</td>
+<td>Gere o PDF pelo Prazos, sem renomear nem editar, e valide de novo (5.5).</td>
+</tr>
+<tr>
+<td>A empresa não recebe o relatório</td>
+<td>Confira se ela está em <strong>Clientes da tarefa</strong> (5.4).</td>
+</tr>
+</tbody></table>
+<h2>6. O que o relatório mostra</h2>
+<table>
+<thead>
+<tr>
+<th>Seção</th>
+<th>Regra</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Férias com risco</strong></td>
+<td>Período aquisitivo completo, com dias pendentes, e prazo limite para gozo <strong>em até 90 dias</strong> (após o prazo, a empresa paga em dobro). Mostra quando o colaborador completa um 2º período.</td>
+</tr>
+<tr>
+<td><strong>Prazos regulares de férias</strong></td>
+<td>Mesmo caso, com mais de 90 dias até o limite.</td>
+</tr>
+<tr>
+<td><strong>Contratos de experiência</strong></td>
+<td>Contratos em curso. O Domínio grava o contrato inteiro na admissão (ex.: 30 + 60 dias), então enquanto o 1º período não termina a prorrogação é só <strong>prevista</strong>; o alerta usa o prazo que importa agora.</td>
+</tr>
+<tr>
+<td><strong>Afastados</strong></td>
+<td>Situação mais recente que não seja Trabalhando, Demitido ou Férias, sem data fim ou com data fim futura.</td>
+</tr>
+<tr>
+<td><strong>2º período de férias</strong></td>
+<td>Quem tem 1 período completo sem gozar e está perto de completar o seguinte (janela de 120 dias).</td>
+</tr>
+<tr>
+<td><strong>Aniversariantes do mês</strong></td>
+<td>Empregados ativos (com categoria eSocial; sócios com pró-labore ficam de fora).</td>
+</tr>
+</tbody></table>
+<p><strong>Quem entra:</strong> só <strong>empresas ativas</strong> (situação <em>A</em> no Domínio) e <strong>empregados ativos</strong> — o status mais recente no histórico de afastamentos não é <em>Demitido</em>.</p>
+<h2>7. Temas</h2>
+<p>Na tela <strong>Temas</strong>, clique no cartão do visual desejado: <strong>Neon</strong> (padrão), <strong>Grafite</strong>, <strong>Claro</strong>, <strong>Oceano</strong> ou <strong>Rosa</strong>. A troca é imediata e fica lembrada neste computador.</p>
+<p><img src="img/15-temas.png" alt="Tela Temas"></p>
+<p><img src="img/16-tema-claro.png" alt="Tema Claro"></p>
+<p>O botão <strong>Recolher menu</strong> (rodapé do menu lateral) deixa só os ícones.</p>
+<h2>8. Problemas comuns</h2>
+<table>
+<thead>
+<tr>
+<th>Sintoma</th>
+<th>O que fazer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;Driver ODBC … não está instalado&quot;</td>
+<td>Use <strong>Instalar driver ODBC</strong> (seção 3).</td>
+</tr>
+<tr>
+<td>&quot;Usuário ou senha inválidos&quot; ao conectar</td>
+<td>Confira usuário e senha com o suporte (precisam ser os do banco do Domínio, não os do sistema). Enquanto isso, use o botão <strong>Entrar com</strong> o nome da conexão, se ele aparecer.</td>
+</tr>
+<tr>
+<td>Não conecta / demora e dá erro</td>
+<td>Confira o endereço do servidor e a porta, e se o PC alcança o servidor (rede/VPN) e se o Domínio está no ar.</td>
+</tr>
+<tr>
+<td>Indicador vermelho depois de um tempo</td>
+<td>A conexão caiu e a reconexão automática não conseguiu: volte em <strong>Conexão</strong> e conecte de novo.</td>
+</tr>
+<tr>
+<td>&quot;A pasta de destino não existe mais&quot;</td>
+<td>Clique em <strong>Trocar</strong> e escolha a pasta de novo.</td>
+</tr>
+<tr>
+<td>A empresa não aparece na lista</td>
+<td>Só aparecem as cadastradas no Domínio; a lista é carregada ao conectar (reconecte para atualizar).</td>
+</tr>
+<tr>
+<td>PDF sem alertas</td>
+<td>A empresa está em dia: o PDF sai só com o texto do modelo e a mensagem de que não há avisos.</td>
+</tr>
+<tr>
+<td>Um dado &quot;parece errado&quot;</td>
+<td>Compare com o cadastro no Domínio (férias, afastamentos) e leve o caso ao suporte; o app só lê o que está no banco.</td>
+</tr>
+</tbody></table>
+<h2>9. Segurança e privacidade</h2>
+<ul>
+<li>O app <strong>só executa consultas de leitura</strong> (SELECT); nunca altera o Domínio.</li>
+<li>A <strong>senha não é gravada</strong> em nenhum lugar; fica só na memória enquanto o app está aberto.</li>
+<li>Os PDFs contêm nomes de empregados: guarde-os em pastas com acesso restrito.</li>
+<li>O Prazos não envia nada para a internet nem para ninguém: ele apenas gera arquivos. O envio ao Gestta (seção 5) é feito pelo <strong>Express</strong>, um programa à parte, só com os arquivos que estiverem na pasta Express.</li>
+<li>No Express, prefira o <strong>login por código</strong> (sem senha) e não compartilhe o código de acesso: ele dá acesso à conta do Gestta por alguns segundos.</li>
+</ul>
+<h2>10. Para quem mantém o projeto</h2>
+<p>Código em <code>relatorios-dominio\</code> (Electron + React + Vite).</p>
+<pre><code>npm install        # dependências
+npm run dev        # janela com recarga automática
+npm test           # testes das regras do relatório
+npm run dist       # gera release\Prazos_Setup.exe
+</code></pre>
+<p>Regravar o vídeo e as capturas deste guia (dados 100% fictícios, nada do Domínio real):</p>
+<pre><code>npm run build
+npx esbuild scripts/demo/pdf-exemplo.ts --bundle --platform=node --external:pdfkit --outfile=scripts/demo/.build/pdf-exemplo.js
+powershell -File scripts/demo/narracao.ps1 -Saida &lt;pasta-dos-wav&gt;
+npx electron scripts/demo/gravar-demo.js &lt;pasta-dos-wav&gt; documentacao
+</code></pre>
+<p>O roteiro da narração está em <code>scripts/demo/roteiro.json</code>.</p>
+<p>As cenas do Gestta (Express e tarefa) usam duas gravações de tela, <code>Express.mp4</code> e <code>Config Tarefa.mp4</code> (por padrão em <code>C:\Users\ti\Videos</code>; outro caminho em <code>PRAZOS_VIDEO_EXPRESS</code> e <code>PRAZOS_VIDEO_TAREFA</code>). Os dados sensíveis dessas gravações (e-mail, código, nomes de clientes, favoritos, endereço, área de trabalho) são borrados por <code>scripts/demo/gestta-blur.js</code>, que lista as regiões e os intervalos de tempo; <strong>se trocar as gravações, refaça essa lista e confira o resultado</strong>. As capturas do guia (<code>documentacao\img\gestta</code>) saem de <code>scripts/demo/gerar-capturas-gestta.js</code>. As gravações originais <strong>não</strong> devem ser distribuídas, só o vídeo e as imagens já borrados.</p>
+</body></html>

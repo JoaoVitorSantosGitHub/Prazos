@@ -1,0 +1,70 @@
+[
+  {
+    "id": "i01-gancho",
+    "tipo": "gancho",
+    "titulo": "Férias vencendo. Contrato de experiência acabando.",
+    "texto": "Conferir isso empresa por empresa, na mão, toma tempo."
+  },
+  {
+    "id": "i02-logo",
+    "tipo": "logo",
+    "titulo": "Prazos",
+    "sub": "Mais uma aplicação pública para o departamento pessoal",
+    "texto": "Aplicativo para Windows que lê o Domínio, só leitura, e gera o relatório de vencimentos em PDF."
+  },
+  {
+    "id": "i03-alertas",
+    "tipo": "tela",
+    "img": "04-previa-topo.png",
+    "titulo": "Alertas de cada empresa",
+    "origem": "30% 20%",
+    "texto": "Férias com risco, contratos de experiência, afastados e aniversariantes, empresa por empresa."
+  },
+  {
+    "id": "i04-pdf",
+    "tipo": "tela",
+    "img": "06-previa-pdf.png",
+    "titulo": "PDF pronto em um clique",
+    "origem": "50% 30%",
+    "texto": "O PDF sai pronto, com o texto e o visual do escritório."
+  },
+  {
+    "id": "i05-lote",
+    "tipo": "tela",
+    "img": "09-atalhos.png",
+    "titulo": "Todas as empresas de uma vez",
+    "origem": "40% 25%",
+    "texto": "Atalhos marcam as empresas com aviso hoje ou com prazo em 3 ou 6 meses. Um PDF por empresa."
+  },
+  {
+    "id": "i06-listas",
+    "tipo": "tela",
+    "img": "23-lista-escolhida.png",
+    "titulo": "Uma lista para cada pessoa",
+    "origem": "40% 55%",
+    "texto": "Listas de empresas para cada pessoa da equipe."
+  },
+  {
+    "id": "i07-marca",
+    "tipo": "tela",
+    "img": "19-aparencia-cores.png",
+    "titulo": "Com a cara do seu escritório",
+    "origem": "70% 40%",
+    "texto": "Logo, marca d'água, rodapé e cores do seu escritório."
+  },
+  {
+    "id": "i08-gestta",
+    "tipo": "gancho",
+    "titulo": "Entrega automática aos clientes",
+    "fluxo": ["Prazos gera o PDF", "Pasta Express", "Tarefa do cliente no Gestta"],
+    "texto": "Para quem usa o Gestta: entrega automática dos relatórios aos clientes, pelo Express."
+  },
+  {
+    "id": "i09-cta",
+    "tipo": "cta",
+    "titulo": "Prazos",
+    "sub": "Mais uma aplicação pública para a contabilidade",
+    "botao": "Aplicativo para Windows",
+    "texto": ""
+  }
+]

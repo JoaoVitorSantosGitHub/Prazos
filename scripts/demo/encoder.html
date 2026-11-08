@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>encoder</title>
+<script>
+  // Monta o vídeo (mp4, ou webm se o mp4 não estiver disponível) a partir dos quadros capturados e da narração, em tempo real.
+  const espera = (ms) => new Promise((r) => setTimeout(r, Math.max(0, ms)));
+  let partes = [];
+  let mimeFinal = '';
+
+  window.codificar = async (cfg) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = cfg.w;
+    canvas.height = cfg.h;
+    const c2d = canvas.getContext('2d');
+    document.body.appendChild(canvas);
+    canvas.style.cssText = 'width:240px;height:150px';
+    const faixaVideo = canvas.captureStream(30).getVideoTracks()[0];
+
+    const ctx = new AudioContext();
+    await ctx.resume();
+    window.estadoAudio = ctx.state;
+    const destino = ctx.createMediaStreamDestination();
+    const bufs = [];
+    for (const b64 of cfg.audios) bufs.push(await ctx.decodeAudioData(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer));
+
+    // sem narração (cfg.semAudio): o mp4 sai sem nenhuma faixa de áudio
+    const fluxo = new MediaStream(cfg.semAudio ? [faixaVideo] : [faixaVideo, ...destino.stream.getAudioTracks()]);
+    const tipos = cfg.semAudio ? ['video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'] : ['video/mp4;codecs=avc1.640028,mp4a.40.2', 'video/mp4;codecs=avc1.42E01E,mp4a.40.2', 'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm'];
+    mimeFinal = (cfg.mime && MediaRecorder.isTypeSupported(cfg.mime) ? cfg.mime : tipos.find((t) => MediaRecorder.isTypeSupported(t))) || '';
+    const gravador = new MediaRecorder(fluxo, { mimeType: mimeFinal, videoBitsPerSecond: 3_500_000, ...(cfg.semAudio ? {} : { audioBitsPerSecond: 128_000 }) });
+    partes = [];
+    gravador.ondataavailable = (e) => { if (e.data.size) partes.push(e.data); };
+
+    const carregar = (u) => new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('quadro ' + u)); im.src = u; });
+    let proximo = carregar(cfg.quadros[0].u);
+    const primeiro = await proximo;
+    c2d.drawImage(primeiro, 0, 0, cfg.w, cfg.h);
+    gravador.start(1000);
+
+    const origem = performance.now() + 300; // o áudio entra 300 ms depois, no mesmo ponto da linha do tempo
+    const baseAudio = ctx.currentTime + 0.3;
+    for (const f of cfg.falas) {
+      const fonte = ctx.createBufferSource();
+      fonte.buffer = bufs[f.i];
+      fonte.connect(destino);
+      fonte.start(baseAudio + f.t / 1000);
+    }
+
+    for (let k = 0; k < cfg.quadros.length; k++) {
+      const im = k === 0 ? primeiro : await proximo;
+      if (k + 1 < cfg.quadros.length) proximo = carregar(cfg.quadros[k + 1].u);
+      await espera(origem + cfg.quadros[k].t - performance.now());
+      c2d.drawImage(im, 0, 0, cfg.w, cfg.h);
+      }
+    await espera(600);
+    await new Promise((res) => { gravador.onstop = res; gravador.stop(); });
+    return { mime: mimeFinal, n: partes.length, tamanhos: partes.map((p) => p.size), trilhas: fluxo.getTracks().map((t) => t.kind + ':' + t.readyState + ':' + t.muted), quadros: cfg.quadros.length };
+  };
+
+  window.pegarParte = (i) => new Promise((resolve) => {
+    const leitor = new FileReader();
+    leitor.onload = () => resolve(String(leitor.result).slice(String(leitor.result).indexOf(';base64,') + 8));
+    leitor.readAsDataURL(partes[i]);
+  });
+</script>

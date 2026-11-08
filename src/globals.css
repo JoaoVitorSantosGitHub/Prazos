@@ -1,0 +1,224 @@
+﻿@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+/* Visual JVS (documentacao/prompt-visual.md do NFS-e Download): 5 temas, cada um é só um conjunto de variáveis de cor,
+   aplicado pelo atributo data-theme na <html>. Os componentes usam apenas os tokens abaixo, nunca cor fixa. */
+
+/* ---------- temas ---------- */
+:root, [data-theme="neon"] {
+  color-scheme: dark;
+  --bg: #080b10; --side: #0b1017; --card: #0e141d; --card2: #121a26; --line: #1c2735;
+  --txt: #e6eef8; --mut: #8497ae; --acc: #22d3ee; --acc-t: #04121a;
+  --ok: #39ff14; --bad: #ff073a; --warn: #ffd23f; --canc: #c084fc;
+  --ok-t: #04120a; --bad-t: #ffffff; --warn-t: #1c1500;
+  --input: #0a1018; --sel: #122033;
+  --glow-ok: 0 0 10px #39ff1466; --glow-bad: 0 0 10px #ff073a77;
+  --glow-ok-text: 0 0 8px #39ff1488; --glow-bad-text: 0 0 8px #ff073a99;
+  --shadow: 0 6px 24px #0008;
+}
+[data-theme="grafite"] {
+  color-scheme: dark;
+  --bg: #15171c; --side: #1a1d23; --card: #20242c; --card2: #262b34; --line: #323844;
+  --txt: #e8eaee; --mut: #9aa3b2; --acc: #7aa2ff; --acc-t: #0b1020;
+  --ok: #34d399; --bad: #f87171; --warn: #fbbf24; --canc: #b69cff;
+  --ok-t: #04120d; --bad-t: #1a0b0b; --warn-t: #1c1500;
+  --input: #171a20; --sel: #2a3140;
+  --glow-ok: none; --glow-bad: none; --glow-ok-text: none; --glow-bad-text: none;
+  --shadow: 0 4px 18px #0006;
+}
+[data-theme="claro"] {
+  color-scheme: light;
+  --bg: #f3f5f9; --side: #ffffff; --card: #ffffff; --card2: #f6f8fc; --line: #e1e6ee;
+  --txt: #1c2430; --mut: #667489; --acc: #1351b4; --acc-t: #ffffff;
+  --ok: #12a150; --bad: #d92d20; --warn: #b7791f; --canc: #7c3aed;
+  --ok-t: #ffffff; --bad-t: #ffffff; --warn-t: #ffffff;
+  --input: #ffffff; --sel: #e8effc;
+  --glow-ok: none; --glow-bad: none; --glow-ok-text: none; --glow-bad-text: none;
+  --shadow: 0 4px 18px #1351b412;
+}
+[data-theme="oceano"] {
+  color-scheme: dark;
+  --bg: #0a1c2b; --side: #0d2437; --card: #10304a; --card2: #143a58; --line: #1d4668;
+  --txt: #e8f3fb; --mut: #8fb0c8; --acc: #4fd1c5; --acc-t: #062a2a;
+  --ok: #5eead4; --bad: #ff7a90; --warn: #ffd36e; --canc: #c4a8ff;
+  --ok-t: #042a24; --bad-t: #2a0710; --warn-t: #1c1500;
+  --input: #0b2638; --sel: #16405f;
+  --glow-ok: 0 0 8px #5eead455; --glow-bad: 0 0 8px #ff7a9055;
+  --glow-ok-text: 0 0 8px #5eead455; --glow-bad-text: 0 0 8px #ff7a9055;
+  --shadow: 0 6px 24px #0006;
+}
+[data-theme="rosa"] {
+  color-scheme: light;
+  --bg: #fff3f8; --side: #ffffff; --card: #ffffff; --card2: #fff0f6; --line: #f7cfe1;
+  --txt: #3d1228; --mut: #8c5a73; --acc: #e11d74; --acc-t: #ffffff;
+  --ok: #12853f; --bad: #c81e3a; --warn: #b7791f; --canc: #8b5cf6;
+  --ok-t: #ffffff; --bad-t: #ffffff; --warn-t: #ffffff;
+  --input: #ffffff; --sel: #ffe1ee;
+  --glow-ok: none; --glow-bad: none; --glow-ok-text: none; --glow-bad-text: none;
+  --shadow: 0 4px 18px #e11d7412;
+}
+
+/* ---------- tokens usados pelos componentes (derivados do tema) ---------- */
+:root {
+  --background: var(--bg);
+  --foreground: var(--txt);
+  --card-foreground: var(--txt);
+
+  --primary: var(--acc);
+  --primary-hover: color-mix(in srgb, var(--acc) 86%, black);
+  --primary-active: color-mix(in srgb, var(--acc) 72%, black);
+  --primary-foreground: var(--acc-t);
+
+  --secondary: var(--card2);
+  --secondary-hover: var(--sel);
+  --secondary-active: color-mix(in srgb, var(--sel) 80%, var(--acc));
+  --secondary-foreground: var(--txt);
+
+  --muted: var(--card2);
+  --muted-foreground: var(--mut);
+
+  --accent: var(--acc);
+  --accent-hover: color-mix(in srgb, var(--acc) 86%, black);
+  --accent-foreground: var(--acc-t);
+
+  --destructive: var(--bad);
+  --destructive-hover: color-mix(in srgb, var(--bad) 86%, black);
+  --destructive-active: color-mix(in srgb, var(--bad) 72%, black);
+  --destructive-foreground: var(--bad-t);
+
+  --success: var(--ok);
+  --success-foreground: var(--ok-t);
+  --warning: var(--warn);
+  --warning-foreground: var(--warn-t);
+  --info: var(--acc);
+  --info-foreground: var(--acc-t);
+
+  --border: var(--line);
+  --ring: var(--acc);
+
+  --sidebar-bg: var(--side);
+  --sidebar-fg: var(--txt);
+  --sidebar-border: var(--line);
+  --sidebar-hover: var(--sel);
+  --sidebar-hover-fg: var(--txt);
+  --sidebar-active-bg: var(--sel);
+  --sidebar-active-fg: var(--acc);
+  --sidebar-active-border: var(--acc);
+
+  --link: var(--acc);
+  --link-hover: color-mix(in srgb, var(--acc) 80%, white);
+  --link-active: color-mix(in srgb, var(--acc) 80%, black);
+
+  --radius: 10px; /* botões e campos (9–10 px); cartões usam 14 px */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-active: var(--secondary-active);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-active: var(--destructive-active);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-canceled: var(--canc);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-link-active: var(--link-active);
+  --color-sidebar: var(--sidebar-bg);
+  --color-sidebar-foreground: var(--sidebar-fg);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-hover-foreground: var(--sidebar-hover-fg);
+  --color-sidebar-active: var(--sidebar-active-bg);
+  --color-sidebar-active-foreground: var(--sidebar-active-fg);
+  --color-sidebar-active-border: var(--sidebar-active-border);
+  --font-sans: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --font-mono: Consolas, ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  * { border-color: var(--border); }
+  html { font-size: 14px; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  /* foco de campo: borda no destaque + anel translúcido de 3 px */
+  input:not([type="checkbox"]):not([type="radio"]), textarea, [role="combobox"] {
+    background: var(--input);
+    border-color: var(--line);
+  }
+  input:not([type="checkbox"]):not([type="radio"]):focus-visible, textarea:focus-visible, [role="combobox"]:focus-visible {
+    outline: none;
+    border-color: var(--acc);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc) 30%, transparent);
+  }
+  :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+  input:not([type="checkbox"]):not([type="radio"]):focus-visible, textarea:focus-visible, [role="combobox"]:focus-visible { outline: none; }
+  input[type="checkbox"], input[type="radio"] { accent-color: var(--acc); }
+}
+
+/* o estado é sempre texto + cor; nos temas com neon o texto ganha um brilho discreto */
+.text-success { text-shadow: var(--glow-ok-text); }
+.text-destructive { text-shadow: var(--glow-bad-text); }
+
+/* Cartão: um nível acima do fundo, borda de 1 px e sombra suave */
+.cartao-jvs { border-radius: 14px; box-shadow: var(--shadow); }
+
+/* Barra de rolagem fina (12 px), arredondada, sem setas */
+* { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background: var(--acc); background-clip: content-box; }
+::-webkit-scrollbar-button { display: none; }
+
+/* Botão outline — hover "fill sweep" */
+.btn-outline-sweep {
+  overflow: hidden;
+  transition: color 300ms, transform 100ms;
+}
+.btn-outline-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: var(--primary);
+  transition: width 300ms ease-out;
+  z-index: 0;
+}
+.btn-outline-sweep:hover { color: var(--primary-foreground); }
+.btn-outline-sweep:hover::after { width: 100%; }
+.btn-outline-sweep:active::after { background: var(--primary-active); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
